@@ -1,6 +1,6 @@
 import type React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import Home from "./Pages/Home/Home";
 
 const App: React.FC = () => {
   return(
