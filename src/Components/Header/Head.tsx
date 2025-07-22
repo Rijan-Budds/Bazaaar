@@ -1,76 +1,54 @@
-import React from "react";
-import Logo from "../../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
-import { IoIosAddCircle } from "react-icons/io";
-import Search from "./SearchBox/Search";
-import Button from "@mui/material/Button";
-import AlertGif from "../../assets/alert.gif";
+import React from 'react';
+import { Link } from "react-router-dom"
 
-const Header: React.FC = () => {
-  const navigate = useNavigate();
-
-  const handleLoginClick = (): void => {
-    navigate("/login");
-  };
-
-  const handleChats = (): void => {
-    navigate("/chats");
-  };
-
-  const handlePost = (): void => {
-    navigate("/post");
-  };
-
+import Logo from "../../assets/logo.png"
+import Alert from "../../assets/alert.gif"
+function Head() {
   return (
-    <div className="headerWrapper">
-      <div className="top-strip bg-purple">
-        <div className="container">
-          <p className="mb-0 mt-0 text-center">
-            Please be aware of <b>scams.</b>
-          </p>
+    <>
+      <div className='w-full'>
+        <div className='bg-[#bb2649] py-2'>
+          <div className='max-w-[1200px] mx-auto px-4'>
+            <p className='text-white text-center font-medium text-sm m-0'>
+              Please be aware of scams.
+              </p>
+          </div>
         </div>
-      </div>
 
-      <header className="header">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="logoWrapper col-sm-2">
-              <Button>
-                <Link to="/">
-                  <img src={Logo} alt="Logo" />
-                </Link>
-              </Button>
-            </div>
-            <div className="col-sm-10">
-              <div className="d-flex align-items-center">
-                <Search />
-                <div className="part-3 headerPost ml-4">
-                  <Button className="post" onClick={handlePost}>
-                    <IoIosAddCircle />
-                  </Button>
-                </div>
-                <div className="part-3 d-flex align-items-center ml-4">
-                  <Button className="circle" onClick={handleLoginClick}>
-                    <FaUser />
-                  </Button>
+        <header>
+          <div>
+            <div>
+              <div>
+                <button>
+                  <Link to="/">
+                    <img src={Logo} alt='logo' />
+                  </Link>
+                </button>
+              </div>
+              <div>
+                <div>
+                        {/* here goes the searchbox thing*/}
+                    <div>
+                      <button>
+                        <p>post</p>
+                      </button>
+                    </div>
+                    <div>
+                      <button>
+                        <p>userprofile</p>
+                      </button>
+                    </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </header>
-
-      <div className="gif-wrapper text-center">
-        <img
-          src={AlertGif}
-          alt="Alert GIF"
-          className="w-full max-w-xs mx-auto"
-        />
+        </header>
+      <div>
+      <img src={Alert} alt='alert'/>
       </div>
-    </div>
+      </div>
+    </>
   );
-};
+}
 
-export default Header;
+export default Head;
