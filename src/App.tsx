@@ -1,17 +1,42 @@
-import type React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./Pages/Home/Home";
-import Head from "./Components/Header/Head"
+import Head from "./Components/Header/Head";
+import Login from "./Pages/Login/Login";
+
+// If you uncomment and use these, the logic below will still apply
+// import Profile from "./Pages/Profile/Profile";
+// import Register from "./Pages/Register/Register";
+
+const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+  const noHeaderRoutes = ["/login", "/register", "/profile"];
+
+  const showHeader = !noHeaderRoutes.includes(location.pathname);
+
+  return (
+    <>
+      {showHeader && <Head />}
+      {children}
+    </>
+  );
+};
 
 const App: React.FC = () => {
-  return(
+  return (
     <BrowserRouter>
-    <Head />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <LayoutWrapper>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          {/* 
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/register" element={<Register />} /> 
+          */}
+        </Routes>
+      </LayoutWrapper>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

@@ -13,20 +13,20 @@ const SearchBox = () => {
   };
 
   return (
-    <div className="relative w-[70%] h-[60px] bg-[#f3f4f7] px-5 py-2 ml-4 border border-gray-200 rounded-lg">
+    <div className="relative w-[70%] h-[60px] bg-[#f3f4f7] px-4 py-2 ml-4 border border-gray-200 rounded-lg">
       <input
         type="text"
         placeholder="Search products..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-        className="bg-transparent outline-none text-sm text-gray-800 w-full h-[40px] border-none px-5"
+        className="bg-transparent outline-none text-sm text-gray-800 w-full h-full pr-10"
       />
       <button
         onClick={handleSearch}
-        className="absolute top-3.5 right-4 text-black text-lg flex items-center justify-center"
+        className="absolute top-1/2 -translate-y-1/2 right-3 text-black text-lg hover:text-gray-600 transition-colors"
       >
-        <FaSearch />
+        <FaSearch className="w-4 h-4" />
       </button>
     </div>
   );
