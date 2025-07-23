@@ -2,10 +2,10 @@ import type React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer-container bg-gray-50 py-10 px-5 border-t border-gray-200 text-gray-800 font-poppins w-full">
-      <div className="footer-content flex flex-wrap justify-between max-w-[1200px] mx-auto gap-7.5">
+    <footer className="bg-gray-50 py-10 px-5 border-t border-gray-200 text-gray-800 font-poppins w-full">
+      <div className="flex flex-wrap justify-between max-w-[1200px] mx-auto gap-7.5">
         
-        <div className="footer-section company flex-grow flex-shrink basis-[250px]">
+        <div className="company flex-grow flex-shrink basis-[250px]">
           <h3 className="text-3xl font-semibold  mb-4">Bazaar</h3>
           <p className="text-sm text-gray-600 mb-2">Buy, sell and discover amazing second-hand deals around you.</p>
         </div>
