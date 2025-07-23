@@ -1,37 +1,33 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import { FaSearch } from 'react-icons/fa';
 
-const SearchBox: React.FC = () => {
-  const [query, setQuery] = useState<string>('');
+const SearchBox = () => {
+  const [query, setQuery] = useState('');
   const navigate = useNavigate();
 
-  const handleSearch = (): void => {
+  const handleSearch = () => {
     if (query.trim()) {
       navigate(`/search?q=${encodeURIComponent(query.trim())}`);
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
-
   return (
-    <div className="headerSearch ml-3">
+    <div className="relative w-[70%] h-[60px] bg-[#f3f4f7] px-5 py-2 ml-4 border border-gray-200 rounded-lg">
       <input
         type="text"
         placeholder="Search products..."
         value={query}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className="form-control"
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+        className="bg-transparent outline-none text-sm text-gray-800 w-full h-[40px] border-none px-5"
       />
-      <Button onClick={handleSearch}>
+      <button
+        onClick={handleSearch}
+        className="absolute top-3.5 right-4 text-black text-lg flex items-center justify-center"
+      >
         <FaSearch />
-      </Button>
+      </button>
     </div>
   );
 };
