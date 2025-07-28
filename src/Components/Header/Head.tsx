@@ -14,6 +14,9 @@ function Head() {
     navigate('/login')
   }
   
+  const handlePost = () => {
+    navigate('/post');
+  }
 
   return (
     <div className="w-full">
@@ -40,6 +43,7 @@ function Head() {
               <button
                 aria-label="Add new item"
                 className="w-10 h-10 flex items-center justify-center rounded-full text-gray-700 hover:text-black transition-colors cursor-pointer"
+                onClick={handlePost}
               >
                 <FaPlusCircle className="text-2xl" />
               </button>
