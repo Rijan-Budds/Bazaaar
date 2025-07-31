@@ -12,26 +12,74 @@ interface Post {
   description: string;
   created_at: string;
   location?: string;
-  seller_name?: string;
+  author_name?: string;  // Updated to match backend response
+  author_username?: string;  // Added this field from backend
+}
+
+// Define the API response type
+interface PostsResponse {
+  status: string;
+  posts: Post[];
 }
 
 const Posts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios
-      .get<Post[]>("http://localhost:8081/api/posts")
-      .then((response) => {
-        setPosts(response.data);
-      })
-      .catch((error) => {
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get<PostsResponse>("http://localhost:8081/api/posts", {
+          withCredentials: true, // Include credentials for session
+        });
+
+        console.log('Posts response:', response.data); // Debug log
+
+        if (response.data.status === 'success') {
+          setPosts(response.data.posts); // Access the posts array from the response
+        } else {
+          setError('Failed to fetch posts');
+        }
+      } catch (error) {
         console.error("Error fetching posts:", error);
-      });
+        setError('Error fetching posts');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
   const handlePostClick = (postId: number) => {
     window.open(`/post/${postId}`, "_blank");
   };
+
+  if (loading) {
+    return (
+      <div className="pt-5 pb-5 pl-[500px] flex justify-center">
+        <div className="text-gray-600">Loading posts...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="pt-5 pb-5 pl-[500px] flex justify-center">
+        <div className="text-red-600">{error}</div>
+      </div>
+    );
+  }
+
+  if (posts.length === 0) {
+    return (
+      <div className="pt-5 pb-5 pl-[500px] flex justify-center">
+        <div className="text-gray-600">No posts available</div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-5 pb-5 pl-[500px] flex flex-col gap-4">
@@ -46,6 +94,10 @@ const Posts: React.FC = () => {
               src={`http://localhost:8081/uploads/${post.photo}`}
               alt="Post"
               className="w-30 h-22 object-cover rounded-md mr-4 flex-shrink-0"
+              onError={(e) => {
+                // Handle image load errors
+                e.currentTarget.style.display = 'none';
+              }}
             />
           )}
           <div className="flex flex-col justify-center flex-1">
@@ -66,7 +118,7 @@ const Posts: React.FC = () => {
             </p>
             <p className="text-xs text-gray-400 mt-0.5">
               Posted on {new Date(post.created_at).toLocaleString()} ·{" "}
-              {post.location || "Unknown location"} · Seller: {post.seller_name || "Unknown"}
+              {post.location || "Unknown location"} · Seller: {post.author_name || "Unknown"}
             </p>
           </div>
         </div>
