@@ -19,40 +19,6 @@ const Posts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    // For now, since API not ready, you can uncomment this to test with dummy data
-    /*
-    const dummyPosts: Post[] = [
-      {
-        id: 1,
-        title: "Sample Post 1",
-        photo: "sample1.jpg",
-        category: "Electronics",
-        conditions: "new",
-        price: 15000,
-        negotiable: true,
-        description: "This is a sample description for post 1",
-        created_at: new Date().toISOString(),
-        location: "Kathmandu",
-        seller_name: "Alice",
-      },
-      {
-        id: 2,
-        title: "Sample Post 2",
-        photo: "sample2.jpg",
-        category: "Books",
-        conditions: "used",
-        price: 500,
-        negotiable: false,
-        description: "This is a longer sample description for post 2, which will be truncated in the preview.",
-        created_at: new Date().toISOString(),
-        location: "Pokhara",
-        seller_name: "Bob",
-      },
-    ];
-    setPosts(dummyPosts);
-    */
-
-    // Uncomment when API is ready:
     axios
       .get<Post[]>("http://localhost:8081/api/posts")
       .then((response) => {
@@ -80,7 +46,6 @@ const Posts: React.FC = () => {
               src={`http://localhost:8081/uploads/${post.photo}`}
               alt="Post"
               className="w-30 h-22 object-cover rounded-md mr-4 flex-shrink-0"
-              // w-30 = 120px, h-22 ~ 88px close to your 90px height
             />
           )}
           <div className="flex flex-col justify-center flex-1">
