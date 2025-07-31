@@ -53,7 +53,7 @@ migrationDb.connect(err => {
 
     console.log('✅ Migration completed');
     migrationDb.end();
-    connectToAppDb(); // Continue with app
+    connectToAppDb(); 
   });
 });
 
