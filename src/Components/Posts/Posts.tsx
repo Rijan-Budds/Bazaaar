@@ -12,11 +12,10 @@ interface Post {
   description: string;
   created_at: string;
   location?: string;
-  author_name?: string;  // Updated to match backend response
-  author_username?: string;  // Added this field from backend
+  author_name?: string;  
+  author_username?: string;  
 }
 
-// Define the API response type
 interface PostsResponse {
   status: string;
   posts: Post[];
@@ -32,13 +31,13 @@ const Posts: React.FC = () => {
       try {
         setLoading(true);
         const response = await axios.get<PostsResponse>("http://localhost:8081/api/posts", {
-          withCredentials: true, // Include credentials for session
+          withCredentials: true,
         });
 
-        console.log('Posts response:', response.data); // Debug log
+        console.log('Posts response:', response.data); 
 
         if (response.data.status === 'success') {
-          setPosts(response.data.posts); // Access the posts array from the response
+          setPosts(response.data.posts);
         } else {
           setError('Failed to fetch posts');
         }
@@ -95,7 +94,6 @@ const Posts: React.FC = () => {
               alt="Post"
               className="w-30 h-22 object-cover rounded-md mr-4 flex-shrink-0"
               onError={(e) => {
-                // Handle image load errors
                 e.currentTarget.style.display = 'none';
               }}
             />
